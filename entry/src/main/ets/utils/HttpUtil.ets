@@ -1,4 +1,6 @@
 import http from '@ohos.net.http';
+import router from '@ohos.router';
+import { PreferencesUtil } from './PreferencesUtil';
 
 const BASE_URL: string = 'http://172.29.66.214:8080';
 
@@ -37,6 +39,13 @@ export class HttpUtil {
 
       if (response.responseCode === 200) {
         return response;
+      } else if (response.responseCode === 401) {
+        AppStorage.setOrCreate('token', '');
+        AppStorage.setOrCreate('userId', 0);
+        await PreferencesUtil.delete('token');
+        await PreferencesUtil.delete('userId');
+        router.replaceUrl({ url: 'pages/Login' });
+        throw new Error("[HttpError] Token已过期，请重新登录");
       } else {
         throw new Error(`[HttpError] 请求失败，状态码: ${response.responseCode}`);
       }

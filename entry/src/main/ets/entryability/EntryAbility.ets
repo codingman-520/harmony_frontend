@@ -1,6 +1,7 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
+import { PreferencesUtil } from '../utils/PreferencesUtil';
 
 const DOMAIN = 0x0000;
 
@@ -18,11 +19,28 @@ export default class EntryAbility extends UIAbility {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage): void {
+  async onWindowStageCreate(windowStage: window.WindowStage): Promise<void> {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-    windowStage.loadContent('pages/Login', (err) => {
+    // 初始化 Preferences 并尝试读取 token 自动登录
+    await PreferencesUtil.init(this.context);
+    const token = await PreferencesUtil.get('token', '');
+    const userIdStr = await PreferencesUtil.get('userId', '');
+
+    let startPage = 'pages/Login';
+    if (token.length > 0) {
+      AppStorage.setOrCreate('token', token);
+      if (userIdStr.length > 0) {
+        AppStorage.setOrCreate('userId', Number(userIdStr));
+      }
+      startPage = 'pages/Index';
+      hilog.info(DOMAIN, 'testTag', 'Auto-login token found, routing to Index');
+    } else {
+      hilog.info(DOMAIN, 'testTag', 'No token found, routing to Login');
+    }
+
+    windowStage.loadContent(startPage, (err) => {
       if (err.code) {
         hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
         return;

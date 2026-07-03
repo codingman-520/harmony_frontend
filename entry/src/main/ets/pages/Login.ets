@@ -1,6 +1,7 @@
 import promptAction from '@ohos.promptAction';
 import router from '@ohos.router';
 import { AuthLoginData, AuthService } from '../service/AuthService';
+import { PreferencesUtil } from '../utils/PreferencesUtil';
 
 @Entry
 @Component
@@ -99,6 +100,8 @@ struct Login {
       const data: AuthLoginData = await AuthService.login(this.username.trim(), this.password.trim());
       AppStorage.setOrCreate('token', data.token);
       AppStorage.setOrCreate('userId', data.userId);
+      await PreferencesUtil.put('token', data.token);
+      await PreferencesUtil.put('userId', data.userId.toString());
       promptAction.showToast({ message: '登录成功' });
       router.replaceUrl({ url: 'pages/Index' });
     } catch (e) {

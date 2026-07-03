@@ -1,6 +1,7 @@
 import { User } from '../model/User';
 import { UserService } from '../service/UserService';
 import router from '@ohos.router';
+import { PreferencesUtil } from '../utils/PreferencesUtil';
 
 @Component
 export struct Profile {
@@ -62,8 +63,12 @@ export struct Profile {
           Button('退出登录')
             .width('100%').height(48).backgroundColor('transparent').fontColor('#F56C6C').border({ width: 1, color: '#F56C6C' }).borderRadius(24)
             .margin({ top: 16 })
-            .onClick(() => {
+            .onClick(async () => {
               console.info("用户点击了退出登录");
+              AppStorage.setOrCreate('token', '');
+              AppStorage.setOrCreate('userId', 0);
+              await PreferencesUtil.delete('token');
+              await PreferencesUtil.delete('userId');
               router.replaceUrl({ url: 'pages/Login' });
             })
             

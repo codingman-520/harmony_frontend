@@ -4,15 +4,8 @@ import { SkillService } from '../service/SkillService';
 
 @Component
 export struct SkillTree {
-  @State categories: string[] = ['ALL', '前端', '后端', '数据库', 'DevOps', '软技能'];
-  @State categoryMap: Record<string, string> = {
-    'ALL': 'ALL',
-    '前端': 'FRONTEND',
-    '后端': 'BACKEND',
-    '数据库': 'DATABASE',
-    'DevOps': 'DEVOPS',
-    '软技能': 'SOFT_SKILLS'
-  };
+  @State categories: string[] = ['ALL'];
+  @State categoryMap: Record<string, string> = { 'ALL': 'ALL' };
   @State currentCategory: string = 'ALL';
 
   @Consume skills: SkillItem[];
@@ -21,23 +14,47 @@ export struct SkillTree {
   @State forceUpdateTrigger: boolean = false;
 
   async aboutToAppear() {
+    await this.loadCategories();
     if (this.currentIndex === 1 && (!this.skills || this.skills.length === 0)) {
       this.loadData();
     }
   }
 
-  onTabChange() {
-    if (this.currentIndex === 1 && (!this.skills || this.skills.length === 0)) {
-      this.loadData();
+  async onTabChange() {
+    if (this.currentIndex === 1) {
+      if (this.categories.length <= 1) {
+        await this.loadCategories();
+      }
+      if (!this.skills || this.skills.length === 0) {
+        this.loadData();
+      }
+    }
+  }
+
+  private async loadCategories() {
+    try {
+      const cats = await SkillService.getCategories();
+      if (cats && cats.length > 0) {
+        const catNames: string[] = [];
+        const catMap: Record<string, string> = {};
+        for (let i = 0; i < cats.length; i++) {
+          const item = cats[i];
+          catNames.push(item.name);
+          catMap[item.name] = item.code;
+        }
+        this.categories = catNames;
+        this.categoryMap = catMap;
+      }
+    } catch (e) {
+      console.error("加载动态分类数据失败: " + JSON.stringify(e));
     }
   }
 
   public async loadData(category: string = 'ALL') {
     this.isLoading = true;
     try {
-      const currentUserId: number = AppStorage.get<number>('userId') || 1;
       const param = this.categoryMap[category] || 'ALL';
-      const data = await SkillService.getSkillTreeList(param, currentUserId);
+      const data = await SkillService.getSkillTreeList(param);
       // 🔥 注入真理日志：直接打印拿到的第一个大分类里的第一个子技能状态
       if (data && data.length > 0 && data[0].subSkills && data[0].subSkills.length > 0) {
         console.info("=== [数据对齐检查] 刚刚拉取到的第一个子技能状态是: " + data[0].subSkills[0].status);
@@ -140,8 +157,7 @@ export struct SkillTree {
                       .onClick(async () => {
                         console.info("【底层暴击】成功戳中子技能 Button，所属子技能ID 为: " + sub.id);
                         try {
-                          const currentUserId: number = AppStorage.get<number>('userId') || 1;
-                          const success = await SkillService.toggleSkill(sub.id, currentUserId);
+                          const success = await SkillService.toggleSkill(sub.id);
                           if (success) {
                             await this.loadData(this.currentCategory);
                           }

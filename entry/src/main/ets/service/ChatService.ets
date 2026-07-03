@@ -33,7 +33,7 @@ export class ChatService {
   }
 
   static async sendMessage(query: string, conversationId: string): Promise<SendMessageResult> {
-    const requestData: AiChatRequest = { query: query, user: "student_1" };
+    const requestData: AiChatRequest = { query: query, user: "" };
     if (conversationId) {
       requestData.conversation_id = conversationId;
     }

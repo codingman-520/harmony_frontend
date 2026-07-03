@@ -17,15 +17,45 @@ export interface BackendResponse {
   data: BackendSkill[];
 }
 
+export interface CategoryResponse {
+  code: number;
+  message: string;
+  data: BackendCategory[] | null;
+}
+
+export interface BackendCategory {
+  name: string;
+  code: string;
+}
+
 export class SkillService {
-  static async getSkillTreeList(category: string = 'ALL', userId: number = 0): Promise<SkillItem[]> {
+  static async getCategories(): Promise<BackendCategory[]> {
+    try {
+      const url = '/api/skills/categories';
+      const response = await HttpUtil.get(url);
+      const resObj = JSON.parse(response.result as string) as CategoryResponse;
+      if (resObj.code === 200 && resObj.data) {
+        return resObj.data;
+      }
+      return [];
+    } catch (error) {
+      console.error('获取分类失败，降级使用默认静态分类');
+      return [
+        { name: 'ALL', code: 'ALL' },
+        { name: '前端', code: 'FRONTEND' },
+        { name: '后端', code: 'BACKEND' },
+        { name: '数据库', code: 'DATABASE' },
+        { name: 'DevOps', code: 'DEVOPS' },
+        { name: '软技能', code: 'SOFT_SKILLS' }
+      ];
+    }
+  }
+
+  static async getSkillTreeList(category: string = 'ALL'): Promise<SkillItem[]> {
     try {
       const queryParts: string[] = [];
       if (category !== 'ALL') {
         queryParts.push(`category=${category}`);
-      }
-      if (userId > 0) {
-        queryParts.push(`userId=${userId}`);
       }
       const query: string = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
       const url: string = `/api/skills/tree${query}`;
@@ -116,9 +146,9 @@ export class SkillService {
     }
   }
 
-  static async toggleSkill(skillId: number, userId: number): Promise<boolean> {
+  static async toggleSkill(skillId: number): Promise<boolean> {
     try {
-      const url = `/api/skills/toggle/${skillId}?userId=${userId}`;
+      const url = `/api/skills/toggle/${skillId}`;
       console.info(`【发起点亮请求】 请求地址: ${url}`);
       await HttpUtil.post(url);
       return true;
