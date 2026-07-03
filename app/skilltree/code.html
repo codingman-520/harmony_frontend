@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Hanken+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#2879ba",
+                        "on-secondary-fixed-variant": "#44474a",
+                        "outline-variant": "#c1c7d2",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#fdfcff",
+                        "on-primary-fixed": "#001c37",
+                        "secondary-fixed": "#e0e3e6",
+                        "on-background": "#1a1c1c",
+                        "surface-container": "#efeeed",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#a0caff",
+                        "background": "#faf9f9",
+                        "on-tertiary-fixed-variant": "#004a7a",
+                        "tertiary": "#005f9c",
+                        "primary-fixed": "#d2e4ff",
+                        "secondary-fixed-dim": "#c4c7ca",
+                        "danger": "#F56C6C",
+                        "on-tertiary-container": "#fdfcff",
+                        "bubble-user": "#4A90D9",
+                        "surface-variant": "#e3e2e2",
+                        "text-primary": "#333333",
+                        "warning": "#E6A23C",
+                        "on-tertiary-fixed": "#001d34",
+                        "info": "#909399",
+                        "surface": "#faf9f9",
+                        "surface-container-high": "#e9e8e8",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#a0caff",
+                        "tertiary-fixed": "#d0e4ff",
+                        "surface-dim": "#dadada",
+                        "primary-container": "#2b78bf",
+                        "surface-tint": "#0061a5",
+                        "on-secondary-container": "#626567",
+                        "surface-bright": "#faf9f9",
+                        "surface-card": "#FFFFFF",
+                        "secondary-container": "#e0e3e6",
+                        "primary": "#005ea1",
+                        "secondary": "#5b5f61",
+                        "on-secondary-fixed": "#191c1e",
+                        "inverse-surface": "#2f3131",
+                        "surface-container-low": "#f4f3f3",
+                        "on-surface-variant": "#414751",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#00497e",
+                        "outline": "#717782",
+                        "on-surface": "#1a1c1c",
+                        "tertiary-fixed-dim": "#9bcbff",
+                        "inverse-on-surface": "#f1f0f0",
+                        "on-primary": "#ffffff",
+                        "success": "#67C23A",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e3e2e2",
+                        "on-error-container": "#93000a",
+                        "bubble-ai": "#FFFFFF"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "80px",
+                        "margin-main": "16px",
+                        "canvas-height": "800px",
+                        "input-height": "48px",
+                        "tab-bar-height": "56px",
+                        "canvas-width": "360px",
+                        "gutter-card": "12px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            background-color: #faf9f9;
+            color: #1a1c1c;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex justify-center min-h-screen">
+<div class="w-full max-w-[360px] bg-surface relative min-h-screen pb-[56px] flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-margin-main w-full sticky top-0 z-50 bg-surface border-b border-outline-variant shadow-sm h-[48px]">
+<div class="flex items-center gap-4">
+<button class="active:opacity-70 transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">技能树</h1>
+</div>
+<button class="active:opacity-70 transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<!-- Category Filter (Horizontal Scroll) -->
+<nav class="sticky top-[48px] z-40 bg-surface/95 backdrop-blur-sm py-3 px-margin-main border-b border-outline-variant/30">
+<div class="flex overflow-x-auto hide-scrollbar gap-2">
+<button class="flex-shrink-0 px-4 py-1.5 rounded-full font-label-md text-label-md bg-primary-container text-on-primary-container shadow-sm transition-all">ALL</button>
+<button class="flex-shrink-0 px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-variant/50 transition-all">前端</button>
+<button class="flex-shrink-0 px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-variant/50 transition-all">后端</button>
+<button class="flex-shrink-0 px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-variant/50 transition-all">数据库</button>
+<button class="flex-shrink-0 px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-variant/50 transition-all">DevOps</button>
+<button class="flex-shrink-0 px-4 py-1.5 rounded-full font-label-md text-label-md bg-surface-container-high text-on-surface-variant hover:bg-surface-variant/50 transition-all">软技能</button>
+</div>
+</nav>
+<!-- Skill List Content -->
+<main class="flex-1 px-margin-main py-4 space-y-gutter-card">
+<!-- Skill Card: React -->
+<div class="bg-surface-card rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/20 active:scale-[0.98] transition-transform duration-200">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">React 核心生态</h3>
+<span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-tight bg-[#4A90D9]/10 text-[#4A90D9] uppercase">Frontend</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">掌握现代前端开发的灵魂，从 Hook 到状态管理，构建高性能响应式应用。</p>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1 bg-[#4A90D9]/10 text-[#4A90D9] px-2 py-1 rounded-lg h-[28px]">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Hooks</span>
+</div>
+<div class="flex items-center gap-1 bg-[#4A90D9]/10 text-[#4A90D9] px-2 py-1 rounded-lg h-[28px]">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Next.js</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">Redux Toolkit</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">Three.js</span>
+</div>
+</div>
+</div>
+<!-- Skill Card: Cloud Architecture -->
+<div class="bg-surface-card rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/20 active:scale-[0.98] transition-transform duration-200">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">云原生架构设计</h3>
+<span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-tight bg-[#67C23A]/10 text-[#67C23A] uppercase">DevOps</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">利用 Kubernetes 与 Docker 实现微服务弹性伸缩，打造高可用的分布式系统。</p>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1 bg-[#4A90D9]/10 text-[#4A90D9] px-2 py-1 rounded-lg h-[28px]">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Docker</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">K8s</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">Terraform</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">CI/CD</span>
+</div>
+</div>
+</div>
+<!-- Skill Card: Backend System -->
+<div class="bg-surface-card rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/20 active:scale-[0.98] transition-transform duration-200">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">高性能后端工程</h3>
+<span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-tight bg-[#E6A23C]/10 text-[#E6A23C] uppercase">Backend</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">深入并发模型与 JVM 调优，构建足以支撑千万级流量的稳健后端核心。</p>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1 bg-[#4A90D9]/10 text-[#4A90D9] px-2 py-1 rounded-lg h-[28px]">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Go / Java</span>
+</div>
+<div class="flex items-center gap-1 bg-[#4A90D9]/10 text-[#4A90D9] px-2 py-1 rounded-lg h-[28px]">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Redis</span>
+</div>
+<div class="flex items-center gap-1 bg-[#4A90D9]/10 text-[#4A90D9] px-2 py-1 rounded-lg h-[28px]">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">gRPC</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">Kafka</span>
+</div>
+</div>
+</div>
+<!-- Skill Card: Database -->
+<div class="bg-surface-card rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border border-outline-variant/20 active:scale-[0.98] transition-transform duration-200">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-text-primary">数据存储与优化</h3>
+<span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-tight bg-primary/10 text-primary uppercase">Database</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">从 SQL 复杂查询优化到 NoSQL 选型，掌握企业级数据的持久化与一致性挑战。</p>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1 bg-[#4A90D9]/10 text-[#4A90D9] px-2 py-1 rounded-lg h-[28px]">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">MySQL</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">MongoDB</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low text-on-surface-variant px-2 py-1 rounded-lg h-[28px]">
+<span class="font-label-sm text-label-sm">Elasticsearch</span>
+</div>
+</div>
+</div>
+<!-- Progress Summary Card -->
+<div class="mt-8 mb-4 p-4 rounded-xl bg-primary-container/5 border border-primary-container/20">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline-sm text-headline-sm text-primary">学习进度概览</span>
+<span class="font-label-md text-label-md text-primary">64%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-1000" style="width: 64%"></div>
+</div>
+<p class="mt-3 font-body-sm text-body-sm text-on-surface-variant">你已经点亮了 28 个子技能，超过了 85% 的同期用户。继续加油！</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface border-t border-outline-variant h-[56px] px-2 pb-safe shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-all px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-xl px-3 py-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<span class="font-label-sm text-label-sm">技能树</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-all px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-sm text-label-sm">AI对话</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-all px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">我的</span>
+</a>
+</nav>
+<!-- Decorative Mesh Background (Absolute) -->
+<div class="fixed inset-0 pointer-events-none -z-10 opacity-30">
+<div class="absolute top-[-10%] left-[-10%] w-[300px] h-[300px] rounded-full bg-primary-container/20 blur-[80px]"></div>
+<div class="absolute bottom-[10%] right-[-10%] w-[250px] h-[250px] rounded-full bg-tertiary-container/10 blur-[60px]"></div>
+</div>
+</div>
+<script>
+        // Simple Interaction Logic
+        document.querySelectorAll('button, .active\\:scale-\\[0\\.98\\]').forEach(el => {
+            el.addEventListener('click', () => {
+                // Mimic ripple or state change
+                console.log('Component clicked');
+            });
+        });
+
+        // Dynamic Progress Bar Entry
+        window.addEventListener('load', () => {
+            const progressBar = document.querySelector('.bg-primary.h-full');
+            if (progressBar) {
+                progressBar.style.width = '0%';
+                setTimeout(() => {
+                    progressBar.style.width = '64%';
+                }, 300);
+            }
+        });
+    </script>
+</body></html>

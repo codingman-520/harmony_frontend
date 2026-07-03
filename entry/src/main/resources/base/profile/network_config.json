@@ -1,0 +1,16 @@
+{
+  "network-security-config": {
+    "base-config": {
+      "cleartext-traffic-permitted": true
+    },
+    "domain-config": {
+      "domains": [
+        {
+          "include-subdomains": true,
+          "name": "172.29.66.214"
+        }
+      ],
+      "cleartext-traffic-permitted": true
+    }
+  }
+}

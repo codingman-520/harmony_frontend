@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>AI智能对话 - AI伴学平台</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F7FA;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .bubble-ai {
+            border-top-left-radius: 4px !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .bubble-user {
+            border-top-right-radius: 4px !important;
+        }
+        .chat-container {
+            height: calc(100vh - 48px - 56px - 72px);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#2879ba",
+                    "on-secondary-fixed-variant": "#44474a",
+                    "outline-variant": "#c1c7d2",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#fdfcff",
+                    "on-primary-fixed": "#001c37",
+                    "secondary-fixed": "#e0e3e6",
+                    "on-background": "#1a1c1c",
+                    "surface-container": "#efeeed",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#a0caff",
+                    "background": "#faf9f9",
+                    "on-tertiary-fixed-variant": "#004a7a",
+                    "tertiary": "#005f9c",
+                    "primary-fixed": "#d2e4ff",
+                    "secondary-fixed-dim": "#c4c7ca",
+                    "danger": "#F56C6C",
+                    "on-tertiary-container": "#fdfcff",
+                    "bubble-user": "#4A90D9",
+                    "surface-variant": "#e3e2e2",
+                    "text-primary": "#333333",
+                    "warning": "#E6A23C",
+                    "on-tertiary-fixed": "#001d34",
+                    "info": "#909399",
+                    "surface": "#faf9f9",
+                    "surface-container-high": "#e9e8e8",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#a0caff",
+                    "tertiary-fixed": "#d0e4ff",
+                    "surface-dim": "#dadada",
+                    "primary-container": "#2b78bf",
+                    "surface-tint": "#0061a5",
+                    "on-secondary-container": "#626567",
+                    "surface-bright": "#faf9f9",
+                    "surface-card": "#FFFFFF",
+                    "secondary-container": "#e0e3e6",
+                    "primary": "#005ea1",
+                    "secondary": "#5b5f61",
+                    "on-secondary-fixed": "#191c1e",
+                    "inverse-surface": "#2f3131",
+                    "surface-container-low": "#f4f3f3",
+                    "on-surface-variant": "#414751",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#00497e",
+                    "outline": "#717782",
+                    "on-surface": "#1a1c1c",
+                    "tertiary-fixed-dim": "#9bcbff",
+                    "inverse-on-surface": "#f1f0f0",
+                    "on-primary": "#ffffff",
+                    "success": "#67C23A",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e3e2e2",
+                    "on-error-container": "#93000a",
+                    "bubble-ai": "#FFFFFF"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "header-height": "48px",
+                    "margin-main": "16px",
+                    "canvas-height": "800px",
+                    "input-height": "48px",
+                    "tab-bar-height": "56px",
+                    "canvas-width": "360px",
+                    "gutter-card": "12px"
+            },
+            "fontFamily": {
+                    "label-md": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-sm": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-margin-main w-full sticky top-0 z-50 bg-surface border-b border-outline-variant h-[48px] shadow-sm">
+<div class="flex items-center gap-3">
+<button class="active:opacity-70 transition-all hover:bg-surface-container-high p-1 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-primary font-bold">AI智能对话</h1>
+</div>
+<button class="active:opacity-70 transition-all hover:bg-surface-container-high px-3 py-1 rounded-lg">
+<span class="font-label-md text-label-md text-on-surface-variant">清空</span>
+</button>
+</header>
+<!-- Main Chat Area -->
+<main class="chat-container overflow-y-auto px-margin-main py-4 space-y-6 hide-scrollbar">
+<!-- Timestamp -->
+<div class="text-center">
+<span class="font-label-sm text-label-sm text-outline px-3 py-1 bg-surface-container-low rounded-full">今天 14:30</span>
+</div>
+<!-- AI Message -->
+<div class="flex items-start gap-3 max-w-[85%] group">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white text-[20px] fill-icon">smart_toy</span>
+</div>
+<div class="space-y-1">
+<div class="bg-white p-3 rounded-xl bubble-ai text-on-surface border border-surface-container-high shadow-sm">
+<p class="font-body-md text-body-md">你好！我是你的 AI 学习伴侣。在准备今天的 Python 进阶课程之前，你有什么具体想了解的概念吗？</p>
+</div>
+<span class="font-label-sm text-label-sm text-outline ml-1 opacity-0 group-hover:opacity-100 transition-opacity">14:31</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-start gap-3 max-w-[85%] ml-auto flex-row-reverse group">
+<div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+<img alt="User" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a young male professional student with glasses and a friendly smile, rendered in a modern flat illustration style with clean lines and soft vibrant colors. The background is a solid pale blue, matching a corporate tech aesthetic that conveys approachability and focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZntNvx8EVZrU0ARrW3Bv7dwEpShjyYdO3J0KY9vRbE4p0HNXD0ppy0Suaz0QT-BciRRd1H98gYoVkD0B0cfQyfZyBeUUq5vD_UYOowHu15l1Q6vNwUw_-ZE8T9NWSEkdHkPpz1-cp0Rar9HwSeClbPSN1HeqNLyFO-4JUbZSBTfhqar94y3ruRI5r1K5RU5uvieqSSWOcFxl-VqTLVymKMHwrupaO_yFhs5pYbRFgLIWKc2hdZPAsrHYh5H5y5GCL4PXsDLx1VGEa"/>
+</div>
+<div class="space-y-1 flex flex-col items-end">
+<div class="bg-bubble-user p-3 rounded-xl bubble-user text-white shadow-sm">
+<p class="font-body-md text-body-md">我想复习一下装饰器（Decorators）的工作原理，感觉在这个部分有点卡壳。</p>
+</div>
+<span class="font-label-sm text-label-sm text-outline mr-1 opacity-0 group-hover:opacity-100 transition-opacity">14:32</span>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex items-start gap-3 max-w-[85%] group">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-white text-[20px] fill-icon">smart_toy</span>
+</div>
+<div class="space-y-1">
+<div class="bg-white p-3 rounded-xl bubble-ai text-on-surface border border-surface-container-high shadow-sm">
+<p class="font-body-md text-body-md">没问题！装饰器本质上是一个接受函数并返回函数的高阶函数。我们可以把它想象成给礼物包上一层装饰纸。</p>
+<div class="mt-3 bg-surface-container-lowest p-3 rounded-lg font-label-md text-label-md border border-outline-variant/30 text-primary">
+                        @decorator<br/>
+                        def my_function():<br/>
+                          pass
+                    </div>
+<p class="mt-3 font-body-md text-body-md">需要我用一个具体的代码示例来展示它是如何修改函数行为的吗？</p>
+</div>
+<span class="font-label-sm text-label-sm text-outline ml-1 opacity-0 group-hover:opacity-100 transition-opacity">14:33</span>
+</div>
+</div>
+</main>
+<!-- Input Area -->
+<div class="fixed bottom-[56px] left-0 w-full bg-surface border-t border-outline-variant px-margin-main py-3 z-40">
+<div class="flex items-center gap-3">
+<div class="flex-1 bg-surface-container-low rounded-[24px] h-[48px] flex items-center px-4 border border-outline-variant/50 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-outline mr-2 text-[20px]">add_circle</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-body-md font-body-md placeholder:text-outline h-full" placeholder="输入消息..." type="text"/>
+<span class="material-symbols-outlined text-outline ml-2 text-[20px]">mood</span>
+</div>
+<button class="w-[48px] h-[48px] rounded-full bg-primary flex items-center justify-center text-white active:scale-95 transition-transform shadow-md">
+<span class="material-symbols-outlined fill-icon">send</span>
+</button>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface border-t border-outline-variant h-[56px] px-2 pb-safe shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="font-label-sm text-label-sm">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">account_tree</span>
+<span class="font-label-sm text-label-sm">技能树</span>
+</a>
+<!-- Active Tab: AI对话 -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-xl px-3 py-1 transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined text-[24px] fill-icon">smart_toy</span>
+<span class="font-label-sm text-label-sm font-bold">AI对话</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 transition-colors px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="font-label-sm text-label-sm">我的</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for input area focus
+        const chatContainer = document.querySelector('.chat-container');
+        const input = document.querySelector('input');
+        
+        input.addEventListener('focus', () => {
+            // Scroll to bottom on focus to ensure last message is visible
+            chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
+
+        // Simple send button interaction
+        const sendBtn = document.querySelector('button .material-symbols-outlined.fill-icon');
+        const sendBtnParent = sendBtn.closest('button');
+        
+        sendBtnParent.addEventListener('click', () => {
+            if(input.value.trim() !== '') {
+                // Here would be the logic to append the message
+                input.value = '';
+                // Focus back
+                input.focus();
+            }
+        });
+
+        // Initialize scroll to bottom
+        window.onload = () => {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        };
+    </script>
+</body></html>

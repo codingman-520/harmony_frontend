@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#2879ba",
+                      "on-secondary-fixed-variant": "#44474a",
+                      "outline-variant": "#c1c7d2",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#fdfcff",
+                      "on-primary-fixed": "#001c37",
+                      "secondary-fixed": "#e0e3e6",
+                      "on-background": "#1a1c1c",
+                      "surface-container": "#efeeed",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#a0caff",
+                      "background": "#faf9f9",
+                      "on-tertiary-fixed-variant": "#004a7a",
+                      "tertiary": "#005f9c",
+                      "primary-fixed": "#d2e4ff",
+                      "secondary-fixed-dim": "#c4c7ca",
+                      "danger": "#F56C6C",
+                      "on-tertiary-container": "#fdfcff",
+                      "bubble-user": "#4A90D9",
+                      "surface-variant": "#e3e2e2",
+                      "text-primary": "#333333",
+                      "warning": "#E6A23C",
+                      "on-tertiary-fixed": "#001d34",
+                      "info": "#909399",
+                      "surface": "#faf9f9",
+                      "surface-container-high": "#e9e8e8",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#a0caff",
+                      "tertiary-fixed": "#d0e4ff",
+                      "surface-dim": "#dadada",
+                      "primary-container": "#2b78bf",
+                      "surface-tint": "#0061a5",
+                      "on-secondary-container": "#626567",
+                      "surface-bright": "#faf9f9",
+                      "surface-card": "#FFFFFF",
+                      "secondary-container": "#e0e3e6",
+                      "primary": "#005ea1",
+                      "secondary": "#5b5f61",
+                      "on-secondary-fixed": "#191c1e",
+                      "inverse-surface": "#2f3131",
+                      "surface-container-low": "#f4f3f3",
+                      "on-surface-variant": "#414751",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#00497e",
+                      "outline": "#717782",
+                      "on-surface": "#1a1c1c",
+                      "tertiary-fixed-dim": "#9bcbff",
+                      "inverse-on-surface": "#f1f0f0",
+                      "on-primary": "#ffffff",
+                      "success": "#67C23A",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e3e2e2",
+                      "on-error-container": "#93000a",
+                      "bubble-ai": "#FFFFFF"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "header-height": "80px",
+                      "margin-main": "16px",
+                      "canvas-height": "800px",
+                      "input-height": "48px",
+                      "tab-bar-height": "56px",
+                      "canvas-width": "360px",
+                      "gutter-card": "12px"
+              },
+              "fontFamily": {
+                      "label-md": ["JetBrains Mono"],
+                      "body-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "headline-sm": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "label-sm": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col items-center">
+<main class="w-full max-w-[360px] bg-background min-h-screen relative pb-[72px] shadow-2xl overflow-x-hidden">
+<!-- Header / Greeting Section -->
+<section class="relative h-[200px] w-full bg-gradient-to-br from-[#4A90D9] to-[#6DB3F8] px-margin-main pt-10 flex flex-col justify-between pb-8">
+<!-- Animated Background Element -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+
+</div>
+<div class="flex justify-between items-start z-10">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full border-2 border-white/30 overflow-hidden shadow-lg">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional 3D stylized avatar of a young male professional with modern glasses and a friendly smile. The character is set against a clean, soft blue gradient background that matches the high-tech corporate UI. The lighting is bright and optimistic, emphasizing a modern digital learning aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsA3p7X5_TfaA8366I7W2yN5iv62L-2jEOaR642i1Si0UhDfKameQQkLBJAxoFmYV1ZGBxuVV39kVBRvIRaymm-zRCPb7CVuqhyZ2F72spdcFnfAP1zBCNf4VqChnoACf3YE1l2-jWNCtKGam4H4FoFaznVNwxrpxDieXKmQUWwIagRIF7CoWH9tOVklfR_dN3jAKrKHjEF3OgfS7cnUPJT8r-FKn8TlLPzYnFITQ0FBhFsr6Ooy93reuHn2-5Rf_96MiJefR3tam6"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-white">Hi, 开发者</span>
+<span class="font-body-sm text-body-sm text-white/80">今天也要加油呀！</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 rounded-xl text-white active:scale-90 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<!-- Dashboard Stats Card Layered -->
+<div class="bg-surface-card rounded-xl p-4 shadow-sm z-10 translate-y-12 flex justify-between items-center border border-outline-variant/30">
+<div class="flex flex-col items-center flex-1">
+<span class="font-headline-md text-headline-md text-primary">12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">掌握技能</span>
+</div>
+<div class="w-[1px] h-8 bg-outline-variant"></div>
+<div class="flex flex-col items-center flex-1">
+<span class="font-headline-md text-headline-md text-primary">85%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">学习进度</span>
+</div>
+<div class="w-[1px] h-8 bg-outline-variant"></div>
+<div class="flex flex-col items-center flex-1">
+<span class="font-headline-md text-headline-md text-primary">24</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">连续打卡</span>
+</div>
+</div>
+</section>
+<!-- Quick Entry Grid -->
+<section class="mt-16 px-margin-main grid grid-cols-2 gap-gutter-card">
+<div class="bg-surface-card p-4 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-3 active:scale-95 transition-transform">
+<div class="w-10 h-10 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">account_tree</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">技能树</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">可视化成长路径</span>
+</div>
+</div>
+<div class="bg-surface-card p-4 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-3 active:scale-95 transition-transform">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">AI对话</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">全天候智能导师</span>
+</div>
+</div>
+<div class="bg-surface-card p-4 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-3 active:scale-95 transition-transform">
+<div class="w-10 h-10 rounded-lg bg-warning/10 flex items-center justify-center text-warning">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">模拟面试</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">实战演练涨经验</span>
+</div>
+</div>
+<div class="bg-surface-card p-4 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-3 active:scale-95 transition-transform">
+<div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center text-success">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary">个人中心</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">管理学习档案</span>
+</div>
+</div>
+</section>
+<!-- Hot Skills Section -->
+<section class="mt-8 px-margin-main">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-1">
+<span>🔥</span> 热门技能
+                </h2>
+<button class="text-primary font-label-md text-label-md">查看全部</button>
+</div>
+<div class="flex overflow-x-auto hide-scrollbar gap-3 pb-2 -mx-margin-main px-margin-main">
+<div class="flex-shrink-0 px-4 py-2 bg-primary/10 text-primary rounded-full font-label-md text-label-md border border-primary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Frontend React
+                </div>
+<div class="flex-shrink-0 px-4 py-2 bg-secondary-container/50 text-on-surface-variant rounded-full font-label-md text-label-md border border-outline-variant/30">
+                    Python AI
+                </div>
+<div class="flex-shrink-0 px-4 py-2 bg-secondary-container/50 text-on-surface-variant rounded-full font-label-md text-label-md border border-outline-variant/30">
+                    Data Analysis
+                </div>
+<div class="flex-shrink-0 px-4 py-2 bg-secondary-container/50 text-on-surface-variant rounded-full font-label-md text-label-md border border-outline-variant/30">
+                    UI Design
+                </div>
+</div>
+<!-- Featured Course Card -->
+<div class="mt-4 bg-surface-card rounded-xl overflow-hidden shadow-sm border border-outline-variant/20">
+<div class="relative h-40">
+<img class="w-full h-full object-cover" data-alt="A futuristic computer terminal showing complex neural network visualizations and clean code snippets in a neon-lit, high-tech workspace. The atmosphere is professional and focused, with deep blue and cybernetic teal tones that reflect an advanced AI learning environment. The lighting creates a cinematic depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTZr9b6dRSGH9K2MFGPESTddyyUJB8AqvafKOua_lUbrzUoP43pg0YJO2hA6k6UeRzRvUrGZnAwadWjlCkaQH63U-GTE1lGVKlTbaP_PbT1-Eaj3u3cX_4Iyjcgs3LGULB_I2IK1BOWmSsPhQ3zjAOGJKqs64cHRQ3JTCpsR0ZnhkeznkLEHb14GfC-FFKRmLPKd9pulgdKsg6Jqv1IxumfMMQX6vqcLuw_E0Is3WhPdGnSL1seOt4e7EuoxHDEvHyIYMY3wF8EUw2"/>
+<div class="absolute top-3 left-3 bg-primary text-white text-[10px] px-2 py-1 rounded font-bold uppercase tracking-wider">NEW</div>
+</div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">大语言模型提示词工程</h3>
+<span class="text-success font-label-md text-label-md">免费</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">深入浅出地学习如何优化 AI 的输出结果，提升工作效率 200%。</p>
+<div class="mt-4 flex items-center gap-4">
+<div class="flex -space-x-2">
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsSFz3p_gGM_oR5_1Gqd5rnvkT9CAymbET-oZcAKR2V72CvX7E9rHPBrvIVr6xBRo-Ja697c7wFWR0qUwL4tT9ZEgLikQQ3ctn-tQDz8B3Qow40XMRpdYpTcGC8KPLZDAAWlTpiP0SwickC73x_VP4qYwP96SdNUv3umERoUFktapOUrrxaMxSMmUCyuK8ZAjwlKAkjPUDh4Cc3EjdtyURus7_mAcoUsCQ_CsjvQM9tNZVxKR9-Vs3PXM3-gbBrexKvzSR6m4vN-jH"/>
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy4yKWNmDMHsZBBrRrn_sT-lNrm9iBIrVheBSkKjaXlxJTAacKTnIEaf_YTs2S5a9wEjhrbjiNsK7ZrNhSF_iz48Q_nDh7Fq56Um9kpadA50WRFMYkHMC3eyAjnZkTD2xEZv0vG0Kde3j4Nzu5rbwAArFUCxOSHWbaAFsLxAda1iB3zexNpG098xAPk-mRJ75YP4AM2kCNSsUB8Aep42UkhdgUv-rk-wD556pz515pOfGW9c0kOzbtwLySgPxHfhzLcQn6_Nd1ANXn"/>
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPbG-4lCV8mtxH02DhhOvDgTya5AbglsI39v20OOydn9zIrIn36CQCwh8fI2IVbdopkUbwFHkr1RNFFdZ7iYuoQR0Eygr1kmb7NxSneleQojNgvxZE4SVQYSSwOMO3yRQKrJq8NpbodduT9uI10x_oJ125lBkKfALNhstD2GLZbMHra4tlibbiQn1AWb8iZQ3BEvD9yYn0n5_babffdsyYNP2qrOWgy4QhhsVReI21IsLHjRdCv9VI3XYSOLFGFGYGbPkL-yuT_gPv"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1,248 人正在学习</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Daily Challenge -->
+<section class="mt-8 px-margin-main pb-8">
+<div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white">bolt</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm">每日挑战</div>
+<div class="font-body-sm text-body-sm opacity-80">完成 3 道算法题，奖励 50 积分</div>
+</div>
+</div>
+<button class="bg-white text-primary px-4 py-2 rounded-full font-label-md text-label-md active:scale-95 transition-all">
+                    去挑战
+                </button>
+</div>
+</section>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface px-2 pb-safe h-[56px] shadow-lg border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/20 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm-mobile">首页</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform duration-200 hover:bg-surface-variant/50" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm-mobile">技能树</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform duration-200 hover:bg-surface-variant/50" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm-mobile">AI对话</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform duration-200 hover:bg-surface-variant/50" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm-mobile">我的</span>
+</a>
+</nav>
+</main>
+<script>
+        // Simple Micro-interaction for UI feel
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('click', (e) => {
+                // Potential ripple effect or sound could go here
+            });
+        });
+
+        // Add visual scroll effect for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('section.relative.h-\\[200px\\]');
+            const scrollPos = window.scrollY;
+            if (scrollPos > 10) {
+                // Header could shrink or blur here if needed for desktop
+            }
+        });
+    </script>
+</body></html>
