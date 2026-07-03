@@ -7,6 +7,12 @@ export interface SendMessageResult {
   conversationId: string;
 }
 
+export interface AiChatRequest {
+  query: string;
+  user: string;
+  conversation_id?: string;
+}
+
 export class ChatService {
   static async getChatHistory(): Promise<ChatMessage[]> {
     try {
@@ -27,9 +33,9 @@ export class ChatService {
   }
 
   static async sendMessage(query: string, conversationId: string): Promise<SendMessageResult> {
-    const requestData: Record<string, string> = { "query": query, "user": "student_1" };
+    const requestData: AiChatRequest = { query: query, user: "student_1" };
     if (conversationId) {
-      requestData["conversation_id"] = conversationId;
+      requestData.conversation_id = conversationId;
     }
     
     const res = await HttpUtil.post('/api/ai/chat', requestData);

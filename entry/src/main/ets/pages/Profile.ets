@@ -1,5 +1,6 @@
 import { User } from '../model/User';
 import { UserService } from '../service/UserService';
+import router from '@ohos.router';
 
 @Component
 export struct Profile {
@@ -62,8 +63,8 @@ export struct Profile {
             .width('100%').height(48).backgroundColor('transparent').fontColor('#F56C6C').border({ width: 1, color: '#F56C6C' }).borderRadius(24)
             .margin({ top: 16 })
             .onClick(() => {
-              // 模拟登出弹窗和跳转
               console.info("用户点击了退出登录");
+              router.replaceUrl({ url: 'pages/Login' });
             })
             
           Text('Version 2.4.0 (Enterprise Build)').fontSize(10).fontColor('#909399').margin({ top: 16 })

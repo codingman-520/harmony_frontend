@@ -1,20 +1,34 @@
 import http from '@ohos.net.http';
 
 const BASE_URL: string = 'http://172.29.66.214:8080';
-const TOKEN: string = 'eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJsYXUiLCJ1c2VySWQiOjEsInJvbGUiOiJTVFVERU5UIiwiaWF0IjoxNzgzMDYxMDI0LCJleHAiOjE3ODM2NjU4MjR9.RprE0iN1E7nx5pBHPQ-oIcWYB9Im06pgoWZCjVZFM2cEwCiBkWkEus6yMVENljgw';
+
+interface HttpHeaders {
+  'Content-Type': string;
+  'Authorization'?: string;
+}
 
 export class HttpUtil {
-  static async request(url: string, method: http.RequestMethod, data?: Record<string, string>): Promise<http.HttpResponse> {
+  static async request(url: string, method: http.RequestMethod, data?: object): Promise<http.HttpResponse> {
     const httpRequest = http.createHttp();
     try {
+      let token: string = '';
+      const storedToken = AppStorage.get<string>('token');
+      if (storedToken && storedToken.length > 0) {
+        token = storedToken;
+      }
+
+      const header: HttpHeaders = token.length > 0 ? {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      } : {
+        'Content-Type': 'application/json'
+      };
+
       const response = await httpRequest.request(
         `${BASE_URL}${url}`,
         {
           method: method,
-          header: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${TOKEN}`
-          },
+          header: header,
           extraData: data,
           readTimeout: 30000,
           connectTimeout: 30000
@@ -38,7 +52,7 @@ export class HttpUtil {
     return HttpUtil.request(url, http.RequestMethod.GET);
   }
 
-  static async post(url: string, data?: Record<string, string>): Promise<http.HttpResponse> {
+  static async post(url: string, data?: object): Promise<http.HttpResponse> {
     return HttpUtil.request(url, http.RequestMethod.POST, data);
   }
 }

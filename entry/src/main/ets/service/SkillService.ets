@@ -18,9 +18,17 @@ export interface BackendResponse {
 }
 
 export class SkillService {
-  static async getSkillTreeList(category: string = 'ALL'): Promise<SkillItem[]> {
+  static async getSkillTreeList(category: string = 'ALL', userId: number = 0): Promise<SkillItem[]> {
     try {
-      const url = category === 'ALL' ? '/api/skills/tree' : `/api/skills/tree?category=${category}`;
+      const queryParts: string[] = [];
+      if (category !== 'ALL') {
+        queryParts.push(`category=${category}`);
+      }
+      if (userId > 0) {
+        queryParts.push(`userId=${userId}`);
+      }
+      const query: string = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
+      const url: string = `/api/skills/tree${query}`;
       const response = await HttpUtil.get(url);
       const resObj = JSON.parse(response.result as string) as BackendResponse;
       console.info("【联调终点站】后端返回给前端的完整 res 对象为: " + JSON.stringify(resObj));

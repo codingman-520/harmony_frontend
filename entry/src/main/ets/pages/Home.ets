@@ -1,8 +1,11 @@
 import { User } from '../model/User';
 import { UserService } from '../service/UserService';
+import router from '@ohos.router';
 
 @Component
 export struct Home {
+  @Consume currentIndex: number;
+
   @State userProfile: User | null = null;
   @State isLoading: boolean = false;
 
@@ -64,10 +67,10 @@ export struct Home {
 
         // Quick Entry Grid
         Grid() {
-          GridItem() { this.QuickEntryItem('🌳', '技能树', '可视化成长路径', '#005ea1', '#e0e3e6') }
-          GridItem() { this.QuickEntryItem('🤖', 'AI对话', '全天候智能导师', '#005f9c', '#d0e4ff') }
-          GridItem() { this.QuickEntryItem('🎯', '模拟面试', '实战演练涨经验', '#E6A23C', '#fdf6ec') }
-          GridItem() { this.QuickEntryItem('👤', '个人中心', '管理学习档案', '#67C23A', '#f0f9eb') }
+          GridItem() { this.QuickEntryItem('🌳', '技能树', '可视化成长路径', '#005ea1', '#e0e3e6', 1, '') }
+          GridItem() { this.QuickEntryItem('🤖', 'AI对话', '全天候智能导师', '#005f9c', '#d0e4ff', 2, '') }
+          GridItem() { this.QuickEntryItem('🎯', '模拟面试', '实战演练涨经验', '#E6A23C', '#fdf6ec', -1, 'pages/Interview') }
+          GridItem() { this.QuickEntryItem('👤', '个人中心', '管理学习档案', '#67C23A', '#f0f9eb', 3, '') }
         }
         .columnsTemplate('1fr 1fr')
         .rowsGap(12).columnsGap(12)
@@ -149,7 +152,7 @@ export struct Home {
   }
 
   @Builder
-  QuickEntryItem(icon: string, title: string, subtitle: string, color: string, bgColor: string) {
+  QuickEntryItem(icon: string, title: string, subtitle: string, color: string, bgColor: string, tabIndex: number, routeUrl: string) {
     Column() {
       Row() {
         Text(icon).fontSize(20).width(40).height(40).textAlign(TextAlign.Center).backgroundColor(bgColor).borderRadius(8)
@@ -160,6 +163,18 @@ export struct Home {
     .padding(16).backgroundColor(Color.White).borderRadius(12)
     .shadow({ radius: 4, color: 'rgba(0,0,0,0.05)', offsetY: 2 })
     .width('100%').height('100%')
+    .onClick(() => this.handleQuickEntry(tabIndex, routeUrl))
+  }
+
+  private handleQuickEntry(tabIndex: number, routeUrl: string): void {
+    if (routeUrl && routeUrl.length > 0) {
+      router.pushUrl({ url: routeUrl });
+      return;
+    }
+
+    if (tabIndex >= 0) {
+      this.currentIndex = tabIndex;
+    }
   }
 
   @Builder

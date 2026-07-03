@@ -35,8 +35,9 @@ export struct SkillTree {
   public async loadData(category: string = 'ALL') {
     this.isLoading = true;
     try {
+      const currentUserId: number = AppStorage.get<number>('userId') || 1;
       const param = this.categoryMap[category] || 'ALL';
-      const data = await SkillService.getSkillTreeList(param);
+      const data = await SkillService.getSkillTreeList(param, currentUserId);
       // 🔥 注入真理日志：直接打印拿到的第一个大分类里的第一个子技能状态
       if (data && data.length > 0 && data[0].subSkills && data[0].subSkills.length > 0) {
         console.info("=== [数据对齐检查] 刚刚拉取到的第一个子技能状态是: " + data[0].subSkills[0].status);
@@ -139,8 +140,8 @@ export struct SkillTree {
                       .onClick(async () => {
                         console.info("【底层暴击】成功戳中子技能 Button，所属子技能ID 为: " + sub.id);
                         try {
-                          // 传入子技能真正的 id 和联调测试的 userId 1
-                          const success = await SkillService.toggleSkill(sub.id, 1);
+                          const currentUserId: number = AppStorage.get<number>('userId') || 1;
+                          const success = await SkillService.toggleSkill(sub.id, currentUserId);
                           if (success) {
                             await this.loadData(this.currentCategory);
                           }

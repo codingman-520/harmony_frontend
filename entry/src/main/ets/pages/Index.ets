@@ -8,12 +8,21 @@ import { ChatMessage } from '../model/Message'
 @Entry
 @Component
 struct Index {
-  @Provide currentIndex: number = 0;
+  @Provide @Watch('onIndexChanged') currentIndex: number = 0;
   @Provide skills: SkillItem[] = [];
   @Provide messages: ChatMessage[] = [];
   @Provide conversationId: string = '';
 
+  @State private lastSyncedIndex: number = 0;
   private tabsController: TabsController = new TabsController();
+
+  private onIndexChanged(): void {
+    if (this.currentIndex === this.lastSyncedIndex) {
+      return;
+    }
+    this.lastSyncedIndex = this.currentIndex;
+    this.tabsController.changeIndex(this.currentIndex);
+  }
 
   build() {
     Column() {
@@ -26,7 +35,10 @@ struct Index {
       .scrollable(false)
       .barHeight(0) // 隐藏系统原生 TabBar，使用自定义还原高保真设计
       .layoutWeight(1)
-      .onChange((index: number) => { this.currentIndex = index; })
+      .onChange((index: number) => {
+        this.lastSyncedIndex = index;
+        this.currentIndex = index;
+      })
 
       // Custom Bottom Navigation
       Row() {
