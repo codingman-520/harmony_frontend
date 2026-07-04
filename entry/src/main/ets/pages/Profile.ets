@@ -27,11 +27,7 @@ export struct Profile {
     await this.loadData();
   }
 
-  // 2. 兜底机制：当被作为自定义组件放在页面中，或者所在的页面每次显示时触发
-  async onPageShow() {
-    console.info("Profile组件：页面可见，强制刷新数据");
-    await this.loadData();
-  }
+
 
   // 3. 监听外层 Tabs 的切换行为
   async onTabChange() {
@@ -134,8 +130,20 @@ export struct Profile {
 
           // 2. 统计卡片 (Stats)
           Row({ space: 12 }) {
-            this.StatBox('累计学习', this.totalDuration, '小时', '#005ea1', true)
-            this.StatBox('掌握技能', this.masteredSkills, '项', '#67C23A', false)
+            this.StatBox({
+              title: '累计学习',
+              rawVal: this.totalDuration,
+              unit: '小时',
+              valColor: '#005ea1',
+              isTime: true
+            })
+            this.StatBox({
+              title: '掌握技能',
+              rawVal: this.masteredSkills,
+              unit: '项',
+              valColor: '#67C23A',
+              isTime: false
+            })
           }
           .width('100%')
 
@@ -184,16 +192,16 @@ export struct Profile {
     .backgroundColor('#faf9f9')
   }
 
-  // 统计块 Builder
+  // 统计块 Builder - 采用单参数对象字面量形式以保证响应式数据流正常工作
   @Builder
-  StatBox(title: string, rawVal: number, unit: string, valColor: string, isTime: boolean) {
+  StatBox(params: { title: string, rawVal: number, unit: string, valColor: string, isTime: boolean }) {
     Column() {
-      Text(title).fontSize(12).fontColor('#626567')
+      Text(params.title).fontSize(12).fontColor('#626567')
       Row({ space: 4 }) {
         // 在内部动态渲染，规避传递死字面量的问题
-        Text(isTime ? (rawVal / 60).toFixed(1) : rawVal.toFixed(0))
-          .fontSize(24).fontWeight(FontWeight.Bold).fontColor(valColor)
-        Text(unit).fontSize(10).fontColor('#626567')
+        Text(params.isTime ? (params.rawVal / 60).toFixed(1) : params.rawVal.toFixed(0))
+          .fontSize(24).fontWeight(FontWeight.Bold).fontColor(params.valColor)
+        Text(params.unit).fontSize(10).fontColor('#626567')
       }
       .alignItems(VerticalAlign.Bottom)
       .margin({ top: 4 })
