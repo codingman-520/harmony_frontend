@@ -5,6 +5,67 @@ import { PreferencesUtil } from '../utils/PreferencesUtil';
 import promptAction from '@ohos.promptAction';
 
 @Component
+struct StatBox {
+  title: string = '';
+  @Prop rawVal: number = 0;
+  unit: string = '';
+  valColor: string = '';
+  isTime: boolean = false;
+  onClickAction?: () => void;
+
+  build() {
+    Column() {
+      Text(this.title).fontSize(12).fontColor('#626567')
+      Row({ space: 4 }) {
+        Text(this.isTime ? (this.rawVal / 60).toFixed(1) : this.rawVal.toFixed(0))
+          .fontSize(24).fontWeight(FontWeight.Bold).fontColor(this.valColor)
+        Text(this.unit).fontSize(10).fontColor('#626567')
+      }
+      .alignItems(VerticalAlign.Bottom)
+      .margin({ top: 4 })
+    }
+    .layoutWeight(1)
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+    .border({ width: 1, color: '#e3e2e2' })
+    .alignItems(HorizontalAlign.Start)
+    .onClick(() => {
+      if (this.onClickAction) {
+        this.onClickAction();
+      }
+    })
+  }
+}
+
+@Component
+struct ProfileMenuItem {
+  icon: string = '';
+  title: string = '';
+  action: string = '';
+
+  build() {
+    Row() {
+      Text(this.icon).fontSize(16).margin({ right: 12 })
+      Text(this.title).fontSize(16).fontColor('#1a1c1c')
+      Blank()
+      Text('>').fontSize(16).fontColor('#c1c7d2')
+    }
+    .width('100%')
+    .height(56)
+    .padding({ left: 16, right: 16 })
+    .backgroundColor(Color.White)
+    .onClick(() => {
+      console.info(`点击了菜单: ${this.title}`);
+      promptAction.showToast({ message: `点击了 [${this.title}]，功能开发中...` });
+      if (this.action === 'record') {
+        // router.pushUrl({ url: 'pages/Record' })
+      }
+    })
+  }
+}
+
+@Component
 export struct Profile {
   @State userProfile: User = {
     id: '',
@@ -130,30 +191,32 @@ export struct Profile {
 
           // 2. 统计卡片 (Stats)
           Row({ space: 12 }) {
-            this.StatBox({
+            StatBox({
               title: '累计学习',
               rawVal: this.totalDuration,
               unit: '小时',
               valColor: '#005ea1',
-              isTime: true
+              isTime: true,
+              onClickAction: async () => { await this.loadData(); }
             })
-            this.StatBox({
+            StatBox({
               title: '掌握技能',
               rawVal: this.masteredSkills,
               unit: '项',
               valColor: '#67C23A',
-              isTime: false
+              isTime: false,
+              onClickAction: async () => { await this.loadData(); }
             })
           }
           .width('100%')
 
           // 3. 菜单列表 (Menu List) - 修复布局边界
           Column() {
-            this.MenuItem('📚', '学习记录', 'record')
+            ProfileMenuItem({ icon: '📚', title: '学习记录', action: 'record' })
             Divider().color('#f0eded').margin({ left: 16, right: 16 })
-            this.MenuItem('⚙️', '设置', 'settings')
+            ProfileMenuItem({ icon: '⚙️', title: '设置', action: 'settings' })
             Divider().color('#f0eded').margin({ left: 16, right: 16 })
-            this.MenuItem('ℹ️', '关于伴学平台', 'about')
+            ProfileMenuItem({ icon: 'ℹ️', title: '关于伴学平台', action: 'about' })
           }
           .width('100%') // 必须加 100% 宽度
           .backgroundColor(Color.White)
@@ -190,54 +253,5 @@ export struct Profile {
     .width('100%')
     .height('100%')
     .backgroundColor('#faf9f9')
-  }
-
-  // 统计块 Builder - 采用单参数对象字面量形式以保证响应式数据流正常工作
-  @Builder
-  StatBox(params: { title: string, rawVal: number, unit: string, valColor: string, isTime: boolean }) {
-    Column() {
-      Text(params.title).fontSize(12).fontColor('#626567')
-      Row({ space: 4 }) {
-        // 在内部动态渲染，规避传递死字面量的问题
-        Text(params.isTime ? (params.rawVal / 60).toFixed(1) : params.rawVal.toFixed(0))
-          .fontSize(24).fontWeight(FontWeight.Bold).fontColor(params.valColor)
-        Text(params.unit).fontSize(10).fontColor('#626567')
-      }
-      .alignItems(VerticalAlign.Bottom)
-      .margin({ top: 4 })
-    }
-    .layoutWeight(1)
-    .padding(16)
-    .backgroundColor(Color.White)
-    .borderRadius(12)
-    .border({ width: 1, color: '#e3e2e2' })
-    .alignItems(HorizontalAlign.Start)
-    // 增加点击同步刷新效果（作为彩蛋）
-    .onClick(async () => {
-      await this.loadData();
-    })
-  }
-
-  // 菜单块 Builder
-  @Builder
-  MenuItem(icon: string, title: string, action: string) {
-    Row() {
-      Text(icon).fontSize(16).margin({ right: 12 })
-      Text(title).fontSize(16).fontColor('#1a1c1c')
-      Blank()
-      Text('>').fontSize(16).fontColor('#c1c7d2')
-    }
-    .width('100%') // 必须设为满宽
-    .height(56)   // 限制高度
-    .padding({ left: 16, right: 16 })
-    .backgroundColor(Color.White) // 方便捕获全屏点击手势
-    .onClick(() => {
-      console.info(`点击了菜单: ${title}`);
-      promptAction.showToast({ message: `点击了 [${title}]，功能开发中...` });
-      if (action === 'record') {
-        // 后续联调路由跳转逻辑
-        // router.pushUrl({ url: 'pages/Record' })
-      }
-    })
   }
 }
