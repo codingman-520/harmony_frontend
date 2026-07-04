@@ -222,7 +222,15 @@ struct Interview {
       this.currentQuestionId = res.questionId;
       this.currentQuestionText = res.questionText;
     } catch (e) {
-      promptAction.showToast({ message: '启动面试失败：' + (e.message || JSON.stringify(e)) });
+      let errorMessage = '未知错误';
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      } else if (typeof e === 'string') {
+        errorMessage = e;
+      } else {
+        errorMessage = JSON.stringify(e);
+      }
+      promptAction.showToast({ message: '启动面试失败：' + errorMessage });
     } finally {
       this.isLoading = false;
     }
@@ -246,7 +254,15 @@ struct Interview {
         await this.loadReport();
       }
     } catch (e) {
-      promptAction.showToast({ message: '提交失败：' + (e.message || JSON.stringify(e)) });
+      let errorMessage = '未知错误';
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      } else if (typeof e === 'string') {
+        errorMessage = e;
+      } else {
+        errorMessage = JSON.stringify(e);
+      }
+      promptAction.showToast({ message: '提交失败：' + errorMessage });
     } finally {
       this.isSubmitting = false;
     }
@@ -280,7 +296,15 @@ struct Interview {
         throw new Error('AI 评分超时，请稍后再试');
       }
     } catch (e) {
-      promptAction.showToast({ message: '获取报告失败：' + (e.message || JSON.stringify(e)) });
+      let errorMessage = '未知错误';
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      } else if (typeof e === 'string') {
+        errorMessage = e;
+      } else {
+        errorMessage = JSON.stringify(e);
+      }
+      promptAction.showToast({ message: '获取报告失败：' + errorMessage });
     } finally {
       this.isLoading = false;
     }

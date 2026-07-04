@@ -105,7 +105,15 @@ struct Login {
       promptAction.showToast({ message: '登录成功' });
       router.replaceUrl({ url: 'pages/Index' });
     } catch (e) {
-      promptAction.showToast({ message: '登录失败：' + (e.message || JSON.stringify(e)) });
+      let errorMessage = '未知错误';
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      } else if (typeof e === 'string') {
+        errorMessage = e;
+      } else {
+        errorMessage = JSON.stringify(e);
+      }
+      promptAction.showToast({ message: '登录失败：' + errorMessage });
     } finally {
       this.isLoading = false;
     }

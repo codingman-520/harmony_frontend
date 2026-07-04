@@ -66,7 +66,7 @@ export struct SkillTree {
         
         // 🔥 第二步：利用定时器在下一个宏任务周期（10毫秒后）把真数据塞进去，强行逼迫 UI 重生
         setTimeout(() => {
-          animateTo({ duration: 150 }, () => {
+          this.getUIContext().animateTo({ duration: 150 }, () => {
             this.skills = data;
             this.isLoading = false;
           });
@@ -104,7 +104,7 @@ export struct SkillTree {
               .onClick(() => {
                 if (this.currentCategory === cat) return;
                 
-                animateTo({ duration: 200 }, () => {
+                this.getUIContext().animateTo({ duration: 200 }, () => {
                   this.currentCategory = cat;
                 });
                 

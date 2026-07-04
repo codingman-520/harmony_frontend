@@ -30,7 +30,7 @@ export class AuthService {
       password: password
     };
 
-    const res = await HttpUtil.post('/api/auth/login', req);
+    const res = await HttpUtil.post('/api/auth/login/student', req);
     const parsed = JSON.parse(res.result as string) as ApiResponse<LoginResponseData>;
     if (parsed.code !== 200 || !parsed.data) {
       throw new Error(parsed.message || '登录失败');
