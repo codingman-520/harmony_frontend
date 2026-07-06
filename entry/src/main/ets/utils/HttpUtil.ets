@@ -2,7 +2,7 @@ import http from '@ohos.net.http';
 import router from '@ohos.router';
 import { PreferencesUtil } from './PreferencesUtil';
 
-const BASE_URL: string = 'http://172.29.66.214:8080';
+const BASE_URL: string = 'http://10.0.2.2:8080';
 
 interface HttpHeaders {
   'Content-Type': string;
